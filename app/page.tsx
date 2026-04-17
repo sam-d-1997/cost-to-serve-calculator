@@ -2,6 +2,12 @@
 
 import React, { useMemo, useState } from "react";
 import Image from "next/image";
+import { IBM_Plex_Sans } from "next/font/google";
+
+const plex = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 function parseNumber(value: string): number {
   const cleaned = value.replace(/[^0-9.]/g, "");
@@ -167,7 +173,7 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen text-[#111827]"
+      className={`${plex.className} min-h-screen text-[#111827]`}
       style={{
         background: "linear-gradient(180deg, #CFE8E2 0%, #9FC7C0 100%)",
       }}
@@ -178,47 +184,30 @@ export default function Home() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
               <Image src="/Sparkle.png" alt="Sparkle" width={20} height={20} />
             </div>
-            <h1
-              className="text-left text-4xl font-semibold tracking-tight md:text-5xl"
-              style={{ fontFamily: "'Archivo Narrow', sans-serif" }}
-            >
+            <h1 className="text-left text-4xl font-semibold tracking-tight md:text-5xl">
               Cost to Serve Calculator
             </h1>
           </div>
 
-          <p
-            className="max-w-3xl text-left text-lg leading-8 text-[#374151]"
-            style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}
-          >
-            Estimate your cost per case using inputs from your team. The required inputs will give you a helpful baseline, with the optional fields customizing further for the best accuracy.
+          <p className="max-w-3xl text-left text-lg leading-8 text-[#374151]">
+            Estimate your cost per case using inputs from your team. Required
+            fields give you a quick baseline, and optional fields help make your
+            result more fully loaded.
           </p>
         </div>
 
-       <div className="grid max-w-[1320px] gap-8 xl:grid-cols-[1.2fr_1fr] items-stretch">
-         <div
-  className={`rounded-[28px] border border-black/10 bg-white/90 p-6 shadow-sm backdrop-blur md:p-8 ${
-    !showOptionalFields ? "min-h-[620px]" : ""
-  }`}
->
+        <div className="grid max-w-[1320px] gap-8 items-stretch xl:grid-cols-[1.2fr_1fr]">
+          <div className="h-full rounded-[28px] border border-black/10 bg-white/90 p-6 shadow-sm backdrop-blur md:p-8">
             <div className="mb-8">
-              <p
-                className="mb-2 text-sm font-medium uppercase tracking-[0.14em] text-[#0A514A]"
-                style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}
-              >
+              <p className="mb-2 text-sm font-medium uppercase tracking-[0.14em] text-[#0A514A]">
                 Let&apos;s dive in...
               </p>
-              <h2
-                className="text-left text-2xl font-semibold tracking-tight"
-                style={{ fontFamily: "'Archivo Narrow', sans-serif" }}
-              >
+              <h2 className="text-left text-2xl font-semibold tracking-tight">
                 Your inputs
               </h2>
             </div>
 
-            <div
-              className="grid gap-6 md:grid-cols-2"
-              style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}
-            >
+            <div className="grid gap-6 md:grid-cols-2">
               <label className="block">
                 <InputLabel
                   label="Average hourly wage per agent"
@@ -275,10 +264,7 @@ export default function Home() {
             </div>
 
             {showOptionalFields ? (
-              <div
-                className="mt-8 grid gap-6 border-t border-black/10 pt-8 md:grid-cols-2"
-                style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}
-              >
+              <div className="mt-8 grid gap-6 border-t border-black/10 pt-8 md:grid-cols-2">
                 <label className="block">
                   <InputLabel
                     label="Annual non-headcount costs"
@@ -321,20 +307,18 @@ export default function Home() {
             ) : null}
 
             <div className="mt-8 rounded-2xl bg-white/70 px-4 py-4 text-left text-sm leading-6 text-[#4B5563]">
-              Use optional fields to fine-tune your estimate. The more details you provide, the more accurate your estimate will be.
+              Required fields give you a baseline estimate. Optional fields help
+              make your cost per case more accurate.
             </div>
           </div>
 
-          <div className="rounded-[32px] bg-[#0A514A] p-3 shadow-[0_24px_60px_rgba(10,81,74,0.18)]">
-            <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,#11635B_0%,#0A514A_100%)] text-white">
+          <div className="h-full rounded-[32px] bg-[#0A514A] p-3 shadow-[0_24px_60px_rgba(10,81,74,0.18)]">
+            <div className="flex h-full flex-col rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,#11635B_0%,#0A514A_100%)] text-white">
               <div className="border-b border-white/10 px-6 py-5 md:px-8">
                 <p className="text-left text-sm font-medium uppercase tracking-[0.14em] text-[#D7F15F]">
                   Result
                 </p>
-                <h2
-                  className="mt-2 text-left text-2xl font-semibold tracking-tight"
-                  style={{ fontFamily: "'Archivo Narrow', sans-serif" }}
-                >
+                <h2 className="mt-2 text-left text-2xl font-semibold tracking-tight">
                   Estimated cost per case
                 </h2>
               </div>
@@ -399,7 +383,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="border-t border-white/10 bg-black/10 px-6 py-5 text-left text-sm text-white/85 md:px-8">
+              <div className="mt-auto border-t border-white/10 bg-black/10 px-6 py-5 text-left text-sm text-white/85 md:px-8">
                 Formula:{" "}
                 <span className="font-medium text-white">
                   ((hourly wage × monthly labor hours) + optional annual costs ÷
