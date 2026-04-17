@@ -24,12 +24,48 @@ function formatCurrency(value: number): string {
 }
 
 function InfoTooltip({ text }: { text: string }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const containerRef = React.useRef<HTMLSpanElement | null>(null);
+
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent | TouchEvent) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <span className="group relative ml-2 inline-flex align-middle">
-      <span className="flex h-5 w-5 cursor-default items-center justify-center rounded-full border border-[#B8C3CF] text-xs font-semibold text-[#5B6470]">
+    <span
+      ref={containerRef}
+      className="group relative ml-2 inline-flex align-middle"
+    >
+      <button
+        type="button"
+        aria-label="Show more information"
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="flex h-5 w-5 items-center justify-center rounded-full border border-[#B8C3CF] text-xs font-semibold text-[#5B6470]"
+      >
         i
-      </span>
-      <span className="pointer-events-none absolute left-0 top-7 z-20 w-72 rounded-xl bg-[#111827] px-3 py-2 text-left text-xs font-normal leading-5 text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100">
+      </button>
+
+      <span
+        className={`pointer-events-none absolute left-0 top-7 z-20 w-72 rounded-xl bg-[#111827] px-3 py-2 text-left text-xs font-normal leading-5 text-white shadow-lg transition-opacity duration-150 ${
+          isOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
+      >
         {text}
       </span>
     </span>
@@ -196,7 +232,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid max-w-[1320px] gap-8 items-stretch xl:grid-cols-[1.2fr_1fr]">
+        <div className="grid max-w-[1320px] items-stretch gap-8 xl:grid-cols-[1.2fr_1fr]">
           <div className="h-full rounded-[28px] border border-black/10 bg-white/90 p-6 shadow-sm backdrop-blur md:p-8">
             <div className="mb-8">
               <p className="mb-2 text-sm font-medium uppercase tracking-[0.14em] text-[#0A514A]">
