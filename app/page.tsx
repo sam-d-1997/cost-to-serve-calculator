@@ -218,7 +218,7 @@ export default function Home() {
         <div className="mb-10 max-w-[1320px] border-b border-black/10 pb-8">
           <div className="mb-4 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
-              <Image src="/logo.jpg" alt="logo" width={20} height={20} />
+              <Image src="/logo.jpg" alt="logo" width={32} height={32} />
             </div>
             <h1 className="text-left text-4xl font-semibold tracking-tight md:text-5xl">
               Cost to Serve Calculator
